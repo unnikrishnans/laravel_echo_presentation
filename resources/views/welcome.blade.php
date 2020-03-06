@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="">Presenter</a>
+                    <a href="/presentation">Presenter</a>
                     <a href="">Audience</a>
                 </div>
             </div>
