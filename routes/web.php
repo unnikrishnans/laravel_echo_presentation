@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Events\PublishName;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,4 +19,9 @@ Route::get('/', function () {
 
 Route::get('/presentation', function () {
     return view('presentation');
+});
+
+Route::group(['prefix' => 'audience'], function () {
+	Route::get('/', 'AudienceController@index');
+	Route::post('/submit-name', 'AudienceController@submitNameForm');
 });

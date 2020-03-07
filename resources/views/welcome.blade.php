@@ -46,6 +46,7 @@
 
             .title {
                 font-size: 84px;
+                color: #f05a4d;
             }
 
             .links > a {
@@ -86,7 +87,7 @@
 
                 <div class="links">
                     <a href="/presentation">Presenter</a>
-                    <a href="">Audience</a>
+                    <a href="/audience">Audience</a>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 /**
- * White theme for reveal.js. This is the opposite of the 'black' theme.
- *
+ * Laravel theme for reveal.js. This is made from of the 'white' theme.
+ * Modified by Unnikrishnan S https://unni.in;
  * By Hakim El Hattab, http://hakim.se
  */
 @import url(../../lib/font/source-sans-pro/source-sans-pro.css);
@@ -275,3 +275,33 @@ body {
 @media print {
   .backgrounds {
     background-color: #fff; } }
+
+/****************
+* Customs
+*****************/
+.reveal #example-name-set {
+  position: absolute;
+  top:-3em;
+  z-index: 99;
+  width: 100%;
+  font-size: .6em;
+  color: gray; }
+
+.reveal #example-name {
+  float: left; }
+
+.reveal #example-name::before {
+  content: "@";
+  color: #e87a70; }
+
+.reveal #example-name-help-text {
+  z-index: 999; }
+
+.reveal form #validation {
+  color: #e87a70; }
+
+.reveal #example_name_form_result {
+  color: #719846; }
+
+.reveal .laravel-color{
+  color: #e87a70; }
