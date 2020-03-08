@@ -104,7 +104,7 @@
                     <div id="example-name-set" count="0"></div>
 					<h2 id="example-name-title">Live Example</h2>
 					<p id="example-name-url">
-						Open https://<a href="https://unni.in/laravel-echo">unni.in/laravel-echo</a>
+						Open <a href="https://laravel-echo.unni.in/audience">laravel-echo.unni.in/audience</a>
 					</p>
 					<p id="example-name-help-text">
 						Enter your name in text field
@@ -226,8 +226,8 @@
 				controls: true,
 				progress: true,
 				center: true,
-				hash: false,
-                slideNumber: false,
+				hash: true,
+                slideNumber: true,
 				transition: 'convex', // none/fade/slide/convex/concave/zoom
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
