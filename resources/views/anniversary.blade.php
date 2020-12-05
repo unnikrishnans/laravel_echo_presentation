@@ -63,13 +63,13 @@
                     <div id="example-name-set" count="0"></div>
                     <h2 id="example-name-title">Join the game</h2>
                     <p id="example-name-url">
-                        Open {{--<span class="high_score">https://</span>--}}<a href="https://bit.ly/Akhil-Lalitha">bit.ly/Akhil-Lalitha</a>
+                        Open {{--<span class="high_score">https://</span>--}}<a href="https://game.unni.in/couple">game.unni.in/couple</a>
                     </p>
                     <p id="example-name-help-text">
                         Enter your name and click 'Join'
                     </p>
                     <p id="example-name-help-text-down"></p>
-                    <img class="plain laravel-color" src="/img/anniversary/bit.ly_Akhil-Lalitha.svg" alt="bit.ly/Akhil-Lalitha" />
+                    <img class="plain laravel-color" src="/img/anniversary/game_unni_in_couple.svg" alt="game.unni.in/couple" />
                 </section>
 
                 <!-- WebSocket? -->
