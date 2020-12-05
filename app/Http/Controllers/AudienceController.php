@@ -19,12 +19,12 @@ class AudienceController extends Controller
     }
 
     public function submitNameForm(){
-    	$preparedData = array('id' => 0, 'name'=>'');
+    	$preparedData = array('id' => 0, 'username'=>'', 'name'=>'');
     	$name = $this->request->input('example_name', false);
     	if($name){
-    		$id = rand().substr($name, -3);
-    		$name = str_replace(" ", "_", $name);
-    		$preparedData = array('id' => $id, 'name'=>$name);
+            $username = str_replace(" ", "_", strtolower($name));
+            $id = rand().substr($username, -3);
+            $preparedData = array('id' => $id, 'username'=>$username, 'name'=>$name);
     		broadcast(new PublishName(
     			$preparedData
     		));

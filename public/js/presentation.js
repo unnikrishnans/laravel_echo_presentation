@@ -10597,12 +10597,25 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 Echo.channel('publish.name')
     .listen('PublishName', (e) => {
-        $("#example-name-set").append("<div id='example-name'>"+e.name+"&nbsp;</div>");
+        $("#example-name-set").append("<div id='example-name'>"+e.username+"&nbsp;</div>");
         var count = Number($("#example-name-set").attr('count'));
         count = count+1;
         $("#example-name-set").attr('count',count);
+
+        var player = document.createElement("li");
+        player.innerHTML = e.username+'<span id="'+e.id+'_name" class="hide name">'+e.name+'</span><span id="'+e.id+'_score" class="score">0</span>';
+        player.className = 'addPoint';
+        player.setAttribute('userid',e.id);
+        $("#players").append(player);
+
         if(count == 6) {
         	$("#example-name-title").css("color","#ffffff");
         } else if(count == 10) {
@@ -10617,4 +10630,91 @@ Echo.channel('publish.name')
         	$("#example-name-help-text a").css("color","#ffffff");
         	$("#example-name-help-text-down").html(url_data);
         }
+    })
+    .listen('SendAnswer', (answerData) => {
+        //console.log(answerData);
+        var answer = document.createElement("li");
+        answer.innerHTML = answerData.user_name+'<span id="'+answerData.user_id+'_answer" class="hide answer">'+answerData.answer+'</span>';
+        answer.className = 'showAnswer';
+        answer.setAttribute('userid',answerData.user_id);
+        $("#answers").append(answer);
+        $("#success").html("");
+        $("#validation").html("");
     });
+
+
+$(document).on('click','.showAnswer', function(event){
+    var userId = $(this).attr('userid');
+    $("#"+userId+'_answer').removeClass('hide');
+});
+
+var questions = [
+    {'id':'0', 'text':'Start'},
+    {'id':'1', 'text':'Think of a number between 1 and 10.  Now, guess the number your spouse is thinking.'},
+    {'id':'2', 'text':'When is your dating anniversary?'},
+    {'id':'3', 'text':'Which is the first movie you guys watched together?'},
+    {'id':'4', 'text':'Lalita\'s birth place?'},
+    {'id':'5', 'text':'Xbox Series X or PS5 or Gaming PC, Which is Lalita\'s favorite'},
+    {'id':'6', 'text':'Akhil\'s favorite drink'},
+    {'id':'7', 'text':'Write three sentences about {blank}'}
+];
+
+var nextQuestion = 0;
+function showNextQuestion(question, index){
+    var questionId = $("#sendQuestion").attr('question_id');
+    if(questionId === question.id){
+        nextQuestion = index+1;
+    }
+    if(nextQuestion === index){
+        $('#sendQuestion').html(question.text);
+        $("#sendQuestion").attr('question_id',question.id);
+        $('#answers').html("");
+        sendQuestion(question);
+    }
+}
+
+$(document).on('click','#sendQuestion', function(event){
+    questions.forEach(showNextQuestion);
+});
+
+$(document).on('click','.addPoint', function(event){
+    var userId = $(this).attr('userid');
+    var oldScore = parseInt($("#"+userId+'_score').html());
+    $("#"+userId+'_score').html(oldScore+1);
+    var ul = document.getElementById("players");
+    var players = ul.getElementsByTagName("li");
+    var highestScore = 0;
+    var highestScoreIndex = 0;
+    for (var i = 0; i < players.length; ++i) {
+        var playscore = parseInt($(players[i]).find(".score").html());
+        $(players[i]).find(".score").removeClass('high_score');
+        if(highestScore < playscore){
+            highestScore = playscore;
+            highestScoreIndex = i;
+        }
+    }
+    for (var i = 0; i < players.length; ++i) {
+        var playscore = parseInt($(players[i]).find(".score").html());
+        if(highestScore === playscore){
+            $(players[i]).find(".score").addClass('high_score');
+        }
+    }
+
+});
+
+function sendQuestion(question){
+    $.ajax({
+        type:'POST',
+        url:'/couple/send-question',
+        data:{ question: question},
+        success:function(data){
+            $("#validation").html("");
+            $("#success").html('Waiting for the answers.');
+        },
+        fail:function(e){
+            $("#validation").html(
+                'Something happened, Please refresh the page and try again.');
+        }
+
+    });
+}

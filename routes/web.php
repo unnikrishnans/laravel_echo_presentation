@@ -25,3 +25,13 @@ Route::group(['prefix' => 'audience'], function () {
 	Route::get('/', 'AudienceController@index');
 	Route::post('/submit-name', 'AudienceController@submitNameForm');
 });
+
+Route::group(['prefix' => 'anniversary'], function () {
+    Route::get('/', 'AnniversaryController@index');
+});
+
+Route::group(['prefix' => 'couple'], function () {
+    Route::get('/', 'AnniversaryController@couple');
+    Route::post('/submit-answer', 'AnniversaryController@submitAnswerForm');
+    Route::post('/send-question', 'AnniversaryController@sendQuestionForm');
+});

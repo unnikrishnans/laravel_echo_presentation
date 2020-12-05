@@ -19,3 +19,9 @@ Echo.channel('publish.name')
         	$("#example-name-help-text-down").html(url_data);
         }
     });
+
+
+$( ".accept-order" ).click(function() {
+    var orderId = $(this).attr("orderId");
+    $( orderId ).hide();
+});

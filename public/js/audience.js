@@ -10597,6 +10597,20 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
+let userid;
+let username;
+let name;
+
+$(function() {
+    if($("#couple").length){
+        console.log( "couple page" );
+        if(getCookie('username')){
+            name = getCookie('name');
+            submitName(name);
+        }
+    }
+});
+
 $.ajaxSetup({
 	    headers: {
 	        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -10604,11 +10618,13 @@ $.ajaxSetup({
     });
 
 $(document).ajaxStart(function(){
-  $("#example_name_wait").show();
-});
+    $(".submit-button").hide();
+    $(".wait").show();
 
+});
 $(document).ajaxComplete(function(){
-  $("#example_name_wait").hide();
+    $(".submit-button").show();
+    $(".wait").hide();
 });
 
 
@@ -10618,7 +10634,13 @@ function submitName(example_name){
            url:'/audience/submit-name',
            data:{ example_name: example_name },
            success:function(data){
-				$("#example_name_form_result").html("Assigned username <span class='laravel-color'>@"+data.name+"</span> for you. Check if its displayed on presentation.");
+               username = "@"+data.username;
+               name = example_name;
+               userid = data.id;
+               setCookie('name',name);
+               setCookie('username',username);
+               setCookie('userid',userid);
+                $("#example_name_form_result").html("Assigned username <span class='laravel-color'>"+username+"</span> for you. Check if its displayed on presenter's screen.");
 				$("#example_name_form").hide();
            },
            fail:function(e){
@@ -10629,6 +10651,27 @@ function submitName(example_name){
         });
 }
 
+function submitAnswer(answer, questionId){
+    $.ajax({
+        type:'POST',
+        url:'/couple/submit-answer',
+        data:{ question_id: questionId,
+            user_id: userid,
+            user_name: username,
+            answer: answer },
+        success:function(data){
+            setCookie('last_answered_question_id',data.question_id);
+            $("#question_answer_form").hide();
+            $("#question").html('Please wait for the next question.');
+        },
+        fail:function(e){
+            $("#question_answer_form #validation").html(
+                'Something happened, Please refresh the page and try again.');
+        }
+
+    });
+}
+
 
 $( "form[name=example_name_form]" ).submit(function( event ) {
   event.preventDefault();
@@ -10637,6 +10680,68 @@ $( "form[name=example_name_form]" ).submit(function( event ) {
   		submitName(example_name);
   } else {
   		$("#example_name_form #validation").html(
-  			'Please enter your name and click the button');
+  			'Please enter your name and click the button.');
   }
 });
+
+$( "form[name=question_answer_form]" ).submit(function( event ) {
+    event.preventDefault();
+    var answer = $("input[name=answer]").val().trim();
+    var questionId = $("input[name=question_id]").val().trim();
+    if(answer != ""){
+        submitAnswer(answer, questionId);
+    } else {
+        $("#example_name_form #validation").html(
+            'Please enter your answer and click the button');
+    }
+});
+
+function setCookie(cname, cvalue, exdays=10) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+
+Echo.channel('publish.name')
+    .listen('SendQuestion', (questionData) => {
+        $("#question").html(replaceTokenWithMonkeyOrSpouse(questionData.question_text));
+        $("input[name=question_id]").val(questionData.question_id);
+        $("input[name=answer]").val("");
+        $("#question_answer_form").show();
+        /*var answer = document.createElement("li");
+        answer.innerHTML = answerData.user_name+'<span id="'+answerData.user_id+'_answer" class="hide answer">'+answerData.answer+'</span>';
+        answer.className = 'showAnswer';
+        answer.setAttribute('userid',answerData.user_id);
+        $("#answers").append(answer);
+        $("#success").html();
+        $("#validation").html();*/
+    });
+
+
+function replaceTokenWithMonkeyOrSpouse(text){
+    if(username.includes("lali")){
+        return text.replace('{blank}', 'monkey');
+    }
+    if(username.includes("akh")){
+        return text.replace('{blank}', 'spouse');
+    }
+}

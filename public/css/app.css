@@ -1,0 +1,29 @@
+.hide{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.answer{
+    margin-left: 50px;
+    color: gray;
+}
+
+ul#answers {
+    list-style-image: url('/img/anniversary/wink3.png');
+}
+
+.score {
+    margin-left: 50px;
+    color: chocolate;
+}
+
+.high_score {
+    color: green;
+}
+
+ul#players{
+    list-style-type: none;
+}
