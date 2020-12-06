@@ -49,7 +49,7 @@
 					<p id="example_name_form_result"></p>
                 </section>
                 <section>
-                    <h5 id="question">Please wait for the presenter to start the game.</h5>
+                    <h5 id="question">Please enter name and click 'Join' in the previous slide to join the game.</h5>
                     <p>
                         <form id="question_answer_form" name="question_answer_form" style="display: none;" method="POST">
                             @csrf

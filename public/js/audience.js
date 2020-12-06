@@ -10640,8 +10640,9 @@ function submitName(example_name){
                setCookie('name',name);
                setCookie('username',username);
                setCookie('userid',userid);
-                $("#example_name_form_result").html("Assigned username <span class='laravel-color'>"+username+"</span> for you. Check if its displayed on presenter's screen.");
-				$("#example_name_form").hide();
+               $("#example_name_form_result").html("Assigned username <span class='laravel-color'>"+username+"</span> for you. Check if its displayed on presenter's screen.");
+               $("#question").html('Please wait for the presenter to start the game.');
+               $("#example_name_form").hide();
            },
            fail:function(e){
   				$("#example_name_form #validation").html(
@@ -10723,25 +10724,24 @@ function getCookie(cname) {
 
 Echo.channel('publish.name')
     .listen('SendQuestion', (questionData) => {
+        console.log(questionData);
         $("#question").html(replaceTokenWithMonkeyOrSpouse(questionData.question_text));
         $("input[name=question_id]").val(questionData.question_id);
         $("input[name=answer]").val("");
-        $("#question_answer_form").show();
-        /*var answer = document.createElement("li");
-        answer.innerHTML = answerData.user_name+'<span id="'+answerData.user_id+'_answer" class="hide answer">'+answerData.answer+'</span>';
-        answer.className = 'showAnswer';
-        answer.setAttribute('userid',answerData.user_id);
-        $("#answers").append(answer);
-        $("#success").html();
-        $("#validation").html();*/
+        //$("#question_answer_form").show();
     });
 
 
 function replaceTokenWithMonkeyOrSpouse(text){
+    if(!username){
+        return 'You missed a question because of not joining the game. Move to previous slide and click Join';
+    }
+    $("#question_answer_form").show();
     if(username.includes("lali")){
         return text.replace('{blank}', 'monkey');
     }
     if(username.includes("akh")){
         return text.replace('{blank}', 'spouse');
     }
+    return text;
 }

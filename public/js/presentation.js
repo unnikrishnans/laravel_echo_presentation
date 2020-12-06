@@ -10611,7 +10611,7 @@ Echo.channel('publish.name')
         $("#example-name-set").attr('count',count);
 
         var player = document.createElement("li");
-        player.innerHTML = e.username+'<span id="'+e.id+'_name" class="hide name">'+e.name+'</span><span id="'+e.id+'_score" class="score">0</span>';
+        player.innerHTML = '@'+e.username+'<span id="'+e.id+'_name" class="hide name">'+e.name+'</span><span id="'+e.id+'_score" class="score">0</span>';
         player.className = 'addPoint';
         player.setAttribute('userid',e.id);
         $("#players").append(player);
