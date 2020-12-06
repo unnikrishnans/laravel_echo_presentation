@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="{{ asset('/css/reset.css') }}">
 		<link rel="stylesheet" href="{{ asset('/css/reveal.css') }}">
 		<link rel="stylesheet" href="{{ asset('/css/theme/laravel.css') }}" id="theme">
-
+        <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="{{ asset('/lib/css/monokai.css') }}">
 
@@ -38,9 +38,9 @@
                     <form id="example_name_form" name="example_name_form" method="POST">
 							@csrf
 						<div class="form-group">
-						    <input type="text" name="example_name" class="form-control" id="exampleName" aria-describedby="exampleNameHelp" placeholder="Enter your name">
+						    <input type="text" name="example_name" class="form-control single-input" id="exampleName" aria-describedby="exampleNameHelp" placeholder="Enter your name">
 						</div>
-						<input class="btn btn-primary submit-button" type="submit" value="Join" />
+						<input class="btn btn-primary submit-button answer-button" type="submit" value="Join" />
 						<div><small id="validation"></small></div>
 					</form>
 					<div id="example_name_wait" style="display: none;" class="wait spinner-border text-success" role="status">
@@ -55,9 +55,9 @@
                             @csrf
                             <div class="form-group">
                                 <input type="hidden" name="question_id" value="100" />
-                                <input type="text" name="answer" class="form-control" id="answer" aria-describedby="answer" placeholder="Enter your answer">
+                                <input type="text" name="answer" class="form-control single-input" id="answer" aria-describedby="answer" placeholder="Enter your answer">
                             </div>
-                            <input class="btn btn-primary submit-button" type="submit" value="Submit Answer" />
+                            <input class="btn btn-primary submit-button answer-button" type="submit" value="Submit Answer" />
                             <div><small id="validation"></small></div>
                         </form>
                         <div id="example_name_wait" style="display: none;" class="wait spinner-border text-success" role="status">

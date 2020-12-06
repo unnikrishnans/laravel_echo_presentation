@@ -27,3 +27,14 @@ ul#answers {
 ul#players{
     list-style-type: none;
 }
+
+.single-input {
+    height: 98px;
+    font-size: larger;
+}
+
+.answer-button {
+    height: 98px;
+    font-size: xx-large;
+    width: 40%;
+}
