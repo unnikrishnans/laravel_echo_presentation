@@ -10737,11 +10737,8 @@ function replaceTokenWithMonkeyOrSpouse(text){
         return 'You missed a question because of not joining the game. Move to previous slide and click Join';
     }
     $("#question_answer_form").show();
-    if(username.includes("lali")){
+    if(username.includes("lal")){
         return text.replace('{blank}', 'monkey');
     }
-    if(username.includes("akh")){
-        return text.replace('{blank}', 'spouse');
-    }
-    return text;
+    return text.replace('{blank}', 'spouse');
 }
