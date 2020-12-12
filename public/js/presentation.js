@@ -10653,10 +10653,17 @@ var questions = [
     {'id':'1', 'text':'Think of a number between 1 and 10.  Now, guess the number your spouse is thinking.'},
     {'id':'2', 'text':'When is your dating anniversary?'},
     {'id':'3', 'text':'Which is the first movie you guys watched together?'},
-    {'id':'4', 'text':'Lalita\'s birth place?'},
-    {'id':'5', 'text':'Xbox Series X or PS5 or Gaming PC, Which is Lalita\'s favorite'},
-    {'id':'6', 'text':'Akhil\'s favorite drink'},
-    {'id':'7', 'text':'Write three sentences about {blank}'}
+    {'id':'4', 'text':'Which cuisine/food does your spouse like the most?'},
+    {'id':'5', 'text':'What is your spouse’s best trait?'},
+    {'id':'6', 'text':'What is your spouse’s quirky habit?'},
+    {'id':'7', 'text':'What is your spouse’s guilty pleasure?'},
+    {'id':'8', 'text':'Which is your spouse’s favourite board game?'},
+    {'id':'9', 'text':'Who was your spouse’s first crush?'},
+    {'id':'10', 'text':'If your spouse could time travel where would he/she prefer to go-past or future?'},
+    {'id':'11', 'text':'If your spouse wins a million dollars what would he/she spend it on?'},
+    {'id':'12', 'text':'Who is your spouse’s oldest friend whom he/she is still in touch with?'},
+    {'id':'13', 'text':'Write three sentences about {shown_on_couples_screen}.'},
+    {'id':'14', 'text':'Ah..! That was a fun game. Lets see the score.'}
 ];
 
 var nextQuestion = 0;
@@ -10703,18 +10710,22 @@ $(document).on('click','.addPoint', function(event){
 });
 
 function sendQuestion(question){
-    $.ajax({
-        type:'POST',
-        url:'/couple/send-question',
-        data:{ question: question},
-        success:function(data){
-            $("#validation").html("");
-            $("#success").html('Waiting for the answers.');
-        },
-        fail:function(e){
-            $("#validation").html(
-                'Something happened, Please refresh the page and try again.');
-        }
+    if(questions[questions.length - 1].id != question.id) {
+        $.ajax({
+            type: 'POST',
+            url: '/couple/send-question',
+            data: {question: question},
+            success: function (data) {
+                $("#validation").html("");
+                $("#success").html('Waiting for the answers.');
+            },
+            fail: function (e) {
+                $("#validation").html(
+                    'Something happened, Please refresh the page and try again.');
+            }
 
-    });
+        });
+    } else {
+        $("#success").html(';-)');
+    }
 }

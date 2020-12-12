@@ -63,7 +63,7 @@
                     <div id="example-name-set" count="0"></div>
                     <h2 id="example-name-title">Join the game</h2>
                     <p id="example-name-url">
-                        Open {{--<span class="high_score">https://</span>--}}<a href="https://game.unni.in/couple">game.unni.in/couple</a>
+                        Open {{--<span class="high_score">https://</span>--}}<a href="https://game.unni.in">game.unni.in</a>
                     </p>
                     <p id="example-name-help-text">
                         Enter your name and click 'Join'

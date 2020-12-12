@@ -12,10 +12,10 @@
 */
 use App\Events\PublishName;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
-
+});*/
+Route::get('/', 'AnniversaryController@couple');
 
 Route::get('/presentation', function () {
     return view('presentation');

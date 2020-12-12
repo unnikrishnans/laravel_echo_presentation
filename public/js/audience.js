@@ -10738,7 +10738,7 @@ function replaceTokenWithMonkeyOrSpouse(text){
     }
     $("#question_answer_form").show();
     if(username.includes("lal")){
-        return text.replace('{blank}', 'monkey');
+        return text.replace('{shown_on_couples_screen}', 'monkey');
     }
-    return text.replace('{blank}', 'spouse');
+    return text.replace('{shown_on_couples_screen}', 'spouse');
 }
