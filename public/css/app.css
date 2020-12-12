@@ -38,3 +38,11 @@ ul#players{
     font-size: xx-large;
     width: 40%;
 }
+
+#sendQuestion {
+    cursor: pointer;
+}
+
+.showAnswer{
+    cursor: pointer;
+}
